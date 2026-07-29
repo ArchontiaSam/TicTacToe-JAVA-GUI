@@ -1,5 +1,14 @@
 import javax.swing.JButton;
 
+/*This class is playing a role for the game. 
+ * Computer is playing smart in order to win.
+ * He starts by trying to make the final move in order to win
+ * If not he tries to see if he can play defense and stop player from winning
+ * Else he tries to pick the center cell if it is available
+ * Else he plays randomly a move.
+ * */
+
+
 public class Computer {
 	 public static int size=2;
 
@@ -8,6 +17,7 @@ public class Computer {
 		
 			int []winningMove = findCriticalCell(board,2);
 			
+			//tries to make the final move
 			if(winningMove!=null) {
 				applyMove(board,ticTacToeBoard,winningMove[0],winningMove[1]);
 				return;
@@ -19,13 +29,13 @@ public class Computer {
 	            return;
 	        }
 
-	        // center, take the center if its empty
+	        //take the center if its empty
 	        if (board[1][1]==0) {
 	            applyMove(board,ticTacToeBoard,1,1);
 	            return;
 	        }
 
-	        // otherwise play randomly
+	        //otherwise play randomly
 	        for (int i=0; i<3; i++) {
 	            for (int j=0; j<3; j++) {
 	                if (board[i][j]==0) {
@@ -35,7 +45,7 @@ public class Computer {
 	            }
 	        }
 	    }
-		
+			//find the combination which needs one more move to win
 			private int[] findCriticalCell(int[][] board, int playerSymbol) {
 		 
 				int result[];
@@ -62,7 +72,7 @@ public class Computer {
 						
 				return null;
 	}
-
+			//this function returns the empty cell when the two  are of moves of the same player 
 			private int[] getEmptyIndex(int[][] board,int r1,int c1,int r2,int c2,int r3,int c3,int playerSymbol) {
 			    // if there is an empty cell and the other two are moves of the player 
 			    if (board[r1][c1] + board[r2][c2] + board[r3][c3] == 2 * playerSymbol) {

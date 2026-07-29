@@ -8,15 +8,17 @@ public class Main {
 		
 		for(int i=0; i<size; i++) 
 			for(int j=0; j<size; j++)
-			 board[i][j]=0;    //initialization board that hold moves to zero
+			 board[i][j]=0;    //initialization game board that hold moves to zero
 		
 		
 		//1 stands for player and 2 for computer
 		
 		Player player= new Player(); //create both objects 
 		Computer computer = new Computer();
+		
 		CheckForWinner checkWinner= new CheckForWinner();
-	//		//Game starts
+	    
+		//Game starts
 		GUITicTacToe gui=new GUITicTacToe(board,player,computer,checkWinner);
 		
 

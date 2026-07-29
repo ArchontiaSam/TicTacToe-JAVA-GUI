@@ -2,10 +2,10 @@
 public class CheckForWinner {
 	public static int size=3; //board size remain the same 
 	
+	//This function returns the coordinators of a win or else null to show that the game is not up
 	public int [][] ThereisNoWinnerKeepPlaying(int board[][]) {
 		 	int j=0;
 		 	
-				
 			 for(int i=0; i<size; i++) {
 				// rows
 				if(board[i][j]!=0 && board[i][j]==board[i][j+1] && board[i][j]==board[i][j+2]){ 

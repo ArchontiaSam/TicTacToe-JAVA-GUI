@@ -1,8 +1,8 @@
 import javax.swing.JButton;
 
 public class Player {
-	private int symbol;      // 1 για τον παίκτη
-    private String text;     // "X"
+	private int symbol;      // 1 is for player 
+    private String text;     // "X" is his move symbol
 
     // Constructor
     public Player() {
@@ -16,7 +16,7 @@ public class Player {
         board[row][col] = this.symbol;
         
         // update Submit button
-        ticTacToeBoard[row][col].setText(this.text);
+        ticTacToeBoard[row][col].setText(this.text); //display text when player picks a move
         ticTacToeBoard[row][col].setEnabled(false); // locks button
     }
 }

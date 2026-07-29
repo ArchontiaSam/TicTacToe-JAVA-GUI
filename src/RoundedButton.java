@@ -9,30 +9,30 @@ public class RoundedButton extends JButton {
 
     public RoundedButton(String text, int radius) {
         super(text);
-        this.cornerRadius = radius; // Ακτίνα καμπυλότητας (π.χ. 15-20px)
-        setContentAreaFilled(false); // Αφαιρεί το default ορθογώνιο background της Java
-        setFocusPainted(false);      // Αφαιρεί το περίγραμμα εστίασης όταν πατιέται
-        setBorderPainted(false);    // Αφαιρεί το default border
+        this.cornerRadius = radius; // making button round
+        setContentAreaFilled(false); // disables default background
+        setFocusPainted(false);      // disables boarder when pressed
+        setBorderPainted(false);    // disables default border
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
         
-        // Anti-aliasing για να φαίνονται οι καμπύλες πολύ λείες (Smooth)
+        // Anti-aliasing to make rounding smooth
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Αλλαγή χρώματος αν το κουμπί είναι πατημένο ή όχι
-        if (getModel().isArmed()) {
+        //change color when button is pressed
+        if (getModel().isArmed())
             g2.setColor(getBackground().darker());
-        } else {
+         else 
             g2.setColor(getBackground());
-        }
+        
 
-        // Σχεδιασμός στρογγυλεμένου παραλληλογράμμου
+        // make the shape smoothly rounded
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
 
         g2.dispose();
-        super.paintComponent(g); // Σχεδιάζει το κείμενο (X/O ή Submit) πάνω από το background
+        super.paintComponent(g); //designs (X/O or Submit) on the button
     }
 }
