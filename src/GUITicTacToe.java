@@ -22,6 +22,7 @@ public class GUITicTacToe extends JFrame implements ActionListener{
 	private JLabel DisplayWinner; //label for displaying texts when game is up
 	private JButton[][] TicTacToeBoard=new JButton[size][size]; //buttons for player to play tictactoe
 	private int board[][];  //board to hold moves 1 is for player and 2 is for computer 0 is when cell is empty
+	private JButton RestartButton; //restart game
 	
 	private Player player; //this object stands for player
 	private Computer computer; //this object stands for computer
@@ -43,8 +44,14 @@ public class GUITicTacToe extends JFrame implements ActionListener{
 		DisplayWinner=new JLabel("Game started"); //display text
 		SubmitButton=new RoundedButton("Submit",34); //put a title on the button
 		SubmitButton.setFont(new Font("Arial", Font.BOLD, 20)); //adding font to button
+		SubmitButton.setBackground(Color.lightGray);
 		
-		GamePanel.setLayout(new GridLayout(3,3,5,5)); //add a layout inside the panel in order to put everything 
+		RestartButton=new RoundedButton("Restart Game",34); //restarts game if game is up or if there is no space left
+		RestartButton.setFont(new Font("Arial", Font.BOLD, 20));
+		RestartButton.setBackground(Color.DARK_GRAY); //set a background color for the restart button
+		RestartButton.setForeground(Color.WHITE);
+		
+		GamePanel.setLayout(new GridLayout(3,3,3,3)); //add a layout inside the panel in order to put everything 
 		
 		
 		//border line
@@ -58,6 +65,7 @@ public class GUITicTacToe extends JFrame implements ActionListener{
 	                TicTacToeBoard[i][j] =new JButton("");
 	                TicTacToeBoard[i][j].setPreferredSize(new Dimension(80,80));
 	                TicTacToeBoard[i][j].setFont(new java.awt.Font("Arial",java.awt.Font.BOLD,34));
+	                TicTacToeBoard[i][j].setBackground(Color.WHITE);
 	                TicTacToeBoard[i][j].setBorder(lineBorder);
 	                GamePanel.add(TicTacToeBoard[i][j]); // add to panel
 	            }
@@ -71,9 +79,13 @@ public class GUITicTacToe extends JFrame implements ActionListener{
         
 		ButtonListener listener=new ButtonListener(); //add button listener to make moves
 		SubmitButton.addActionListener(listener);
-	
+		
+		ButtonListener listenerRestart=new ButtonListener();
+		RestartButton.addActionListener(listenerRestart);
+		
 		bottomPanel.add(DisplayWinner); //add label and button to bottom panel
 		bottomPanel.add(SubmitButton);
+		bottomPanel.add(RestartButton);
 		
 		this.add(GamePanel,BorderLayout.CENTER); //add borders
 		this.add(bottomPanel,BorderLayout.SOUTH);
@@ -103,6 +115,12 @@ public class GUITicTacToe extends JFrame implements ActionListener{
 	class ButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			if (e.getSource() == RestartButton) {
+				resetGame();
+				return;
+			}
+			
 			//when submit button is pressed 
 	        if (e.getSource()==SubmitButton) {
 	        	//when game has just started
@@ -174,6 +192,25 @@ public class GUITicTacToe extends JFrame implements ActionListener{
 	            }
 	        }
 	    }
+		
+		//this function resets game by setting pointers, board buttons and board to null (-1,"")
+		private void resetGame() {
+			 for(int i=0; i<size; i++)
+				 for(int j=0; j<size; j++) {
+					 board[i][j]=0;
+					 TicTacToeBoard[i][j].setText("");
+					 TicTacToeBoard[i][j].setBackground(null);
+					 TicTacToeBoard[i][j].setEnabled(true);
+					 TicTacToeBoard[i][j].setBackground(Color.white);
+				 }
+			 
+			 count=0;
+			 selectedRow=-1;
+			 selectedCol=-1;
+			 DisplayWinner.setText("Game started");
+			 SubmitButton.setEnabled(true); //button is allowed to get pressed and be functional
+			
+		}
 	}
 
 	//this function colors the cells with a given color based on the coordinators
